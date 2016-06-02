@@ -1,0 +1,2 @@
+class EnemyNotAttackable < StandardError
+end
