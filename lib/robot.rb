@@ -1,5 +1,8 @@
 class Robot
 
+  # class variable to store instances of robots
+  @@all_robots = Array.new
+
   attr_reader :position, :items, :health, :hitpoints, :equipped_weapon, :shield_points
   attr_writer :equipped_weapon
 
@@ -10,8 +13,17 @@ class Robot
     @health = 100
     @hitpoints = 5
     @shield_points = 50
+    @@all_robots << self
   end
 
+  # class method to manage instances of robots
+  def self.robot_list
+    @@all_robots
+  end
+
+  # class method return all robots in position (x,y)
+
+  # instance methods
   def move_left
     position[0] -= 1
   end
@@ -28,11 +40,18 @@ class Robot
     position[1] -= 1
   end
 
-  # fix 03
   def pick_up(item)
+    # auto feed BoxOfBolts when picked up and health 80 or less
     if item.is_a?(BoxOfBolts) && health <= 80
       item.feed(self)
     end
+
+    # auto recharge shield_points when Battery picked up and shield_points battery < 50
+    if item.is_a?(Battery) && shield_points < 50
+      recharge
+    end
+
+    # auto pick up item if weapon
     if item.is_a? Weapon
       @equipped_weapon = item
     end
@@ -52,8 +71,6 @@ class Robot
   def items_weight
     items.reduce(0) { |sum, item| sum + item.weight }
   end
-
-  # 04
 
   def wound(amount)
     @shield_points -= amount if shield_points > 0
@@ -112,4 +129,9 @@ class Robot
     raise EnemyNotAttackable unless other_robot.is_a? Robot
     attack(other_robot)
   end
+
+  def recharge
+    @shield_points = 50
+  end
+
 end
