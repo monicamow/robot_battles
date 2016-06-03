@@ -1,6 +1,6 @@
 class Robot
 
-  attr_reader :position, :items, :items_weight, :health, :hitpoints, :equipped_weapon
+  attr_reader :position, :items, :items_weight, :health, :hitpoints, :equipped_weapon, :shield
   attr_writer :equipped_weapon
 
   def initialize
@@ -9,6 +9,7 @@ class Robot
     @items_weight = 0
     @health = 100
     @hitpoints = 5
+    @shield = 50
   end
 
   def move_left

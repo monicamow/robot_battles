@@ -1,0 +1,2 @@
+class Battery < Item
+end
