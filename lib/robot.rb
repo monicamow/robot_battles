@@ -1,12 +1,12 @@
 class Robot
 
-  attr_reader :position, :items, :items_weight, :health, :hitpoints, :equipped_weapon
+  attr_reader :position, :items, :health, :hitpoints, :equipped_weapon
   attr_writer :equipped_weapon
 
   def initialize
     @position = [0,0]
     @items = []
-    @items_weight = 0
+    #@items_weight = 0
     @health = 100
     @hitpoints = 5
   end
