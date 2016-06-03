@@ -1,6 +1,6 @@
 class Robot
 
-  attr_reader :position, :items, :health, :hitpoints, :equipped_weapon
+  attr_reader :position, :items, :health, :hitpoints, :equipped_weapon, :shield_points
   attr_writer :equipped_weapon
 
   def initialize
@@ -9,6 +9,7 @@ class Robot
     #@items_weight = 0
     @health = 100
     @hitpoints = 5
+    @shield_points = 50
   end
 
   def move_left
@@ -55,7 +56,17 @@ class Robot
   # 04
 
   def wound(amount)
-    @health -= amount
+    @shield_points -= amount if shield_points > 0
+
+    if shield_points < 0
+      @health_allocation = -shield_points
+    else
+      @health_allocation = 0
+    end
+
+    @shield_points = 0 if shield_points < 0
+
+    @health -= @health_allocation
     @health = 0 if health < 0
   end
 
