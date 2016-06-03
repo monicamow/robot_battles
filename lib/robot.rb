@@ -29,6 +29,9 @@ class Robot
 
   # fix 03
   def pick_up(item)
+    if item.is_a?(BoxOfBolts) && health <= 80
+      item.feed(self)
+    end
     if item.is_a? Weapon
       @equipped_weapon = item
     end
@@ -68,12 +71,17 @@ class Robot
   end
 
   def can_attack?(other_robot)
-    return true if \
     (self.position[0] == other_robot.position[0] + 1) || 
     (self.position[1] == other_robot.position[1] + 1) || 
     (self.position[0] == other_robot.position[0] - 1) || 
     (self.position[1] == other_robot.position[1] - 1) || 
-    (self.position == other_robot.position)
+    (self.position == other_robot.position) || 
+    @equipped_weapon.is_a?(Grenade) && (
+    (self.position[0] == other_robot.position[0] + 2) || 
+    (self.position[1] == other_robot.position[1] + 2) || 
+    (self.position[0] == other_robot.position[0] - 2) || 
+    (self.position[1] == other_robot.position[1] - 2)
+    )
 
   end
 
@@ -85,6 +93,7 @@ class Robot
         other_robot.wound(hitpoints)
       end
     end
+    @equipped_weapon = nil if @equipped_weapon.is_a? Grenade
   end
 
   # ENHANCEMENT 2
