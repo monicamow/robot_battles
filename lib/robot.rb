@@ -67,11 +67,23 @@ class Robot
     heal(amount)
   end
 
+  def can_attack?(other_robot)
+    return true if \
+    (self.position[0] == other_robot.position[0] + 1) || 
+    (self.position[1] == other_robot.position[1] + 1) || 
+    (self.position[0] == other_robot.position[0] - 1) || 
+    (self.position[1] == other_robot.position[1] - 1) || 
+    (self.position == other_robot.position)
+
+  end
+
   def attack(other_robot)
-    unless @equipped_weapon.nil?
-      @equipped_weapon.hit(other_robot)
-    else
-      other_robot.wound(hitpoints)
+    if can_attack?(other_robot)
+      unless @equipped_weapon.nil?
+        @equipped_weapon.hit(other_robot)
+      else
+        other_robot.wound(hitpoints)
+      end
     end
   end
 
