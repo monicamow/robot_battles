@@ -14,6 +14,9 @@ describe Robot do
 
     it 'should list all instances of robots in an array' do
       expect(Robot.robot_list.length).to eq(3)
+      expect(Robot.robot_list).to include(@bob_the_robot)
+      expect(Robot.robot_list).to include(@john_the_robot)
+      expect(Robot.robot_list).to include(@tina_the_robot)
     end
 
   end

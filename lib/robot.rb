@@ -13,6 +13,7 @@ class Robot
     @health = 100
     @hitpoints = 5
     @shield_points = 50
+    # add robot to class variable each time one is instantiated
     @@all_robots << self
   end
 
@@ -22,6 +23,11 @@ class Robot
   end
 
   # class method return all robots in position (x,y)
+  def self.in_position(x, y)
+    @@all_robots.select do |robot| 
+      robot.position == [x, y]
+    end
+  end
 
   # instance methods
   def move_left
@@ -135,3 +141,7 @@ class Robot
   end
 
 end
+
+p Robot.in_position(0, 1)
+
+
