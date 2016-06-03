@@ -140,8 +140,26 @@ class Robot
     @shield_points = 50
   end
 
+  def scan
+
+    @right = (self.position[0] + 1).to_i
+    @left = (self.position[0] - 1).to_i
+    @up = (self.position[1] + 1).to_i
+    @down = (self.position[1] - 1).to_i
+
+    @right = Robot.in_position(@right, 0).count
+    @left = Robot.in_position(@left, 0).count
+    @up = Robot.in_position(0, @up).count
+    @down = Robot.in_position(0, @down).count
+
+    nearby = @right + @left + @up + @down
+
+  end
+
+  # for testing purposes
+  def self.clear_all_robots
+    @@all_robots.clear
+  end
+
 end
-
-p Robot.in_position(0, 1)
-
 

@@ -5,6 +5,10 @@ require 'spec_helper'
 describe Robot do 
 
   before :each do
+
+    # CLEAR CACHE OF ROBOTS FROM TESTS 1-16
+    Robot.clear_all_robots    
+    
     @bob_the_robot = Robot.new
     @john_the_robot = Robot.new
     @tina_the_robot = Robot.new
