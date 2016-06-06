@@ -27,7 +27,7 @@ describe Weapon do
     end
 
     it "hurts robot" do
-      expect(@robot).to receive(:wound).with(45)
+      expect(@robot).to receive(:wound_shield).with(45)
       @weapon.hit(@robot)
     end
   end

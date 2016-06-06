@@ -10,7 +10,7 @@ describe Robot do
 
     it 'should raise a RobotAlreadyDeadError if health <= 0' do
       #expect { raise RobotAlreadyDeadError }.to raise_error
-      @robot.wound(200) # make big wound b/c shield_points
+      @robot.wound_shield(200) # make big wound b/c shield_points
       expect(@robot.health).to eq(0)
       expect{ @robot.heal!(100) }.to raise_error(RobotAlreadyDeadError)
     end

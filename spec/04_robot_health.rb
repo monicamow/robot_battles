@@ -13,20 +13,20 @@ describe Robot do
 
   describe "#wound" do
     it "decreases health" do
-      @robot.wound(20)
+      @robot.wound_shield(20)
       expect(@robot.health).to eq(100) #80 to 100
       expect(@robot.shield_points).to eq(30)
     end
 
     it "doesn't decrease health below 0" do
-      @robot.wound(150)
+      @robot.wound_shield(150)
       expect(@robot.health).to eq(0)
     end
   end
 
   describe "#heal" do
     it "increases health" do
-      @robot.wound(100)
+      @robot.wound_shield(100)
       @robot.heal(20)
       expect(@robot.health).to eq(70) #80 to 100
     end
@@ -44,7 +44,7 @@ describe Robot do
       # Create an expectation that by the end of this test,
       # the second robot will have had #wound method called on it
       # and 5 (the default attack hitpoints) will be passed into that method call
-      expect(robot2).to receive(:wound).with(5)
+      expect(robot2).to receive(:wound_shield).with(5)
 
       # This is what will trigger the wound to happen on robot2
       @robot.attack(robot2)

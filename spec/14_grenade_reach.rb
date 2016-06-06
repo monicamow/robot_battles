@@ -24,7 +24,7 @@ describe Robot do
         end
 
         it "is able to successfully wound the enemy" do
-          expect(@robot2).to receive(:wound)
+          expect(@robot2).to receive(:wound_shield)
           @robot.attack(@robot2)
         end
 

@@ -3,7 +3,7 @@ class Robot
   # class variable to store instances of robots
   @@all_robots = Array.new
 
-  attr_reader :position, :items, :health, :hitpoints, :equipped_weapon, :shield_points
+  attr_reader :position, :items, :health, :hitpoints, :equipped_weapon, :shield_points, :all_nearby
   attr_writer :equipped_weapon
 
   def initialize
@@ -78,7 +78,23 @@ class Robot
     items.reduce(0) { |sum, item| sum + item.weight }
   end
 
-  def wound(amount)
+  # def wound(amount)
+  #   @shield_points -= amount if shield_points > 0
+
+  #   if shield_points < 0
+  #     @health_allocation = -shield_points
+  #   else
+  #     @health_allocation = 0
+  #   end
+
+  #   @shield_points = 0 if shield_points < 0
+
+  #   # deduction from health after shield_points deduction
+  #   @health -= @health_allocation
+  #   @health = 0 if health < 0
+  # end
+
+  def wound_shield(amount)
     @shield_points -= amount if shield_points > 0
 
     if shield_points < 0
@@ -89,8 +105,15 @@ class Robot
 
     @shield_points = 0 if shield_points < 0
 
+    # deduction from health after shield_points deduction
     @health -= @health_allocation
-    @health = 0 if health < 0
+    @health = 0 if health < 0   
+  end
+
+  def wound_health(amount)
+    @health -= amount
+    @health = 0 if health < 0 
+    @shield_points = 0   
   end
 
   def heal(amount)
@@ -121,10 +144,15 @@ class Robot
 
   def attack(other_robot)
     if can_attack?(other_robot)
-      unless @equipped_weapon.nil?
-        @equipped_weapon.hit(other_robot)
+      # switch this statement with the else statement to attack all near robots
+      case 
+      when @equipped_weapon.nil? == true
+        other_robot.wound_shield(hitpoints)
+      when @equipped_weapon.is_a?(SpecialWeapon) == true
+        @equipped_weapon.special_hit(other_robot)
+        @equipped_weapon.special_hit_surrounding(other_robot)
       else
-        other_robot.wound(hitpoints)
+        @equipped_weapon.hit(other_robot)
       end
     end
     @equipped_weapon = nil if @equipped_weapon.is_a? Grenade
@@ -147,19 +175,27 @@ class Robot
     @up = (self.position[1] + 1).to_i
     @down = (self.position[1] - 1).to_i
 
-    @right = Robot.in_position(@right, 0).count
-    @left = Robot.in_position(@left, 0).count
-    @up = Robot.in_position(0, @up).count
-    @down = Robot.in_position(0, @down).count
+    @right = Robot.in_position(@right, 0)
+    @left = Robot.in_position(@left, 0)
+    @up = Robot.in_position(0, @up)
+    @down = Robot.in_position(0, @down)
 
-    nearby = @right + @left + @up + @down
+    @all_nearby = [@right, @left, @up, @down].flatten # FLATTEN THIS
+    # # do an each loop over each position
+    # return @nearby_count = @right.count + @left.count + @up.count + @down.count
 
   end
 
-  # for testing purposes
+  #def scan_right
+  #def scan_left
+  #def scan_up
+  #def scan_down
+
+  # clear cache of all robots for testing purposes
   def self.clear_all_robots
     @@all_robots.clear
   end
 
 end
+
 

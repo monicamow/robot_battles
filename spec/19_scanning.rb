@@ -30,7 +30,9 @@ describe Robot do
   describe '#scan' do
 
     it 'should return a list of robots that are next to the robot' do
-      expect(@bob.scan).to eq(5)
+      @bob.scan
+      expect(@bob.all_nearby.count).to eq(5)
+      expect(@bob.all_nearby).to include(@tina, @john, @ruby, @jake, @coco)
     end
 
   end

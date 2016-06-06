@@ -14,7 +14,7 @@ describe Robot do
   describe '#wound' do
     # when robot damaged it first drains the shield and then actual health
     it 'should drain shield_points before health' do
-      @robot.wound(20)
+      @robot.wound_shield(20)
       expect(@robot.shield_points).to eq(30)
       expect(@robot.health).to eq(100)
     end

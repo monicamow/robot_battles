@@ -18,7 +18,7 @@ describe Robot do
       end
 
       it "is able to successfully wound the enemy" do
-        expect(@robot2).to receive(:wound)
+        expect(@robot2).to receive(:wound_shield)
         #byebug
         @robot.attack(@robot2)
       end
@@ -33,7 +33,7 @@ describe Robot do
       end
 
       it "is unable to successfully wound the enemy" do
-        expect(@robot2).not_to receive(:wound)
+        expect(@robot2).not_to receive(:wound_shield)
         @robot.attack(@robot2)
       end
     end
@@ -46,7 +46,7 @@ describe Robot do
       end
 
       it "is able to successfully wound the enemy" do
-        expect(@robot2).to receive(:wound)
+        expect(@robot2).to receive(:wound_shield)
         @robot.attack(@robot2)
       end
     end
@@ -60,7 +60,7 @@ describe Robot do
       end
 
       it "is unable to successfully wound the enemy" do
-        expect(@robot2).not_to receive(:wound)
+        expect(@robot2).not_to receive(:wound_shield)
         @robot.attack(@robot2)
       end
     end
@@ -73,7 +73,7 @@ describe Robot do
       end
 
       it "is able to successfully wound the enemy" do
-        expect(@robot2).to receive(:wound)
+        expect(@robot2).to receive(:wound_shield)
         @robot.attack(@robot2)
       end
     end
@@ -87,7 +87,7 @@ describe Robot do
       end
 
       it "is unable to successfully wound the enemy" do
-        expect(@robot2).not_to receive(:wound)
+        expect(@robot2).not_to receive(:wound_shield)
         @robot.attack(@robot2)
       end
     end
@@ -100,7 +100,7 @@ describe Robot do
       end
 
       it "is able to successfully wound the enemy" do
-        expect(@robot2).to receive(:wound)
+        expect(@robot2).to receive(:wound_shield)
         @robot.attack(@robot2)
       end
     end
@@ -114,7 +114,7 @@ describe Robot do
       end
 
       it "is unable to successfully wound the enemy" do
-        expect(@robot2).not_to receive(:wound)
+        expect(@robot2).not_to receive(:wound_shield)
         @robot.attack(@robot2)
       end
     end
